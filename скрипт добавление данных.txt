@@ -1,0 +1,69 @@
+INSERT INTO clients VALUES 
+(1, 'client01', 'password01'),
+(2, 'client02', 'password02'),
+(3, 'client03', 'password03');
+
+INSERT INTO passport VALUES 
+(1, 1234, 567890),
+(2, 9078, 563412),
+(3, 5746, 382910);
+
+INSERT INTO contactpersons VALUES 
+(),
+(),
+();
+
+INSERT INTO directors VALUES 
+(),
+(),
+();
+
+INSERT INTO legalentities VALUES 
+(),
+(),
+();
+
+INSERT INTO physicalentities VALUES 
+(),
+(),
+();
+
+INSERT INTO typesemployees VALUES 
+(),
+(),
+();
+
+INSERT INTO employees VALUES 
+(),
+(),
+();
+
+INSERT INTO services VALUES 
+(),
+(),
+();
+
+INSERT INTO laborantservices VALUES 
+(),
+(),
+();
+
+INSERT INTO statusesservices VALUES 
+(),
+(),
+();
+
+INSERT INTO statusesorders VALUES 
+(),
+(),
+();
+
+INSERT INTO orders VALUES 
+(),
+(),
+();
+
+INSERT INTO ordersservices VALUES 
+(),
+(),
+();

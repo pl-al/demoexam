@@ -1,0 +1,120 @@
+CREATE TABLE Clients
+(
+	id SERIAL PRIMARY KEY NOT NULL,
+	email VARCHAR(100) NOT NULL,
+	password_client VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE Passport
+(
+	id SERIAL PRIMARY KEY NOT NULL,
+	series INT NOT NULL,
+	number_passport INT NOT NULL
+);
+
+CREATE TABLE ContactPersons
+(
+	id SERIAL PRIMARY KEY NOT NULL,
+	last_name VARCHAR(100) NOT NULL,
+	first_name VARCHAR(100) NOT NULL,
+	middle_name VARCHAR(100) NOT NULL,
+	telephone VARCHAR(15) NOT NULL
+);
+
+CREATE TABLE Directors
+(
+	id SERIAL PRIMARY KEY NOT NULL,
+	last_name VARCHAR(100) NOT NULL,
+	first_name VARCHAR(100) NOT NULL,
+	middle_name VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE LegalEntities
+(
+	id SERIAL PRIMARY KEY NOT NULL,
+	company VARCHAR(100) NOT NULL,
+	address VARCHAR(100) NOT NULL,
+	payment_account VARCHAR(20) NOT NULL,
+	TIN VARCHAR(10) NOT NULL,
+	BIC VARCHAR(9) NOT NULL,
+	client_id INT REFERENCES Clients(ID),
+	director_id INT REFERENCES Directors(ID),
+	contact_person_id INT REFERENCES ContactPersons(ID)
+);
+
+CREATE TABLE PhysicalEntities
+(
+	id SERIAL PRIMARY KEY NOT NULL,
+	last_name VARCHAR(100) NOT NULL,
+	first_name VARCHAR(100) NOT NULL,
+	middle_name VARCHAR(100) NOT NULL,
+	birthdate DATE NOT NULL,
+	telephone VARCHAR(15) NOT NULL,
+	client_id INT REFERENCES Clients(id),
+	passport_id INT REFERENCES Passport(id)
+);
+
+CREATE TABLE TypesEmployees
+(
+	id SERIAL PRIMARY KEY NOT NULL,
+	type_employee VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE Employees
+(
+	id SERIAL PRIMARY KEY NOT NULL,
+	login VARCHAR(100) NOT NULL,
+	password_employee VARCHAR(100) NOT NULL,
+	last_name VARCHAR(100) NOT NULL,
+	first_name VARCHAR(100) NOT NULL,
+	middle_name VARCHAR(100) NOT NULL,
+	last_login_date TIMESTAMP NOT NULL,
+	employee_type_id INT REFERENCES TypesEmployees(id)
+);
+
+CREATE TABLE Services
+(
+	id SERIAL PRIMARY KEY NOT NULL,
+	service VARCHAR(100) NOT NULL,
+	price MONEY NOT NULL,
+	code VARCHAR(10) NOT NULL,
+	period_execution VARCHAR(100) NOT NULL,
+	average_deviation VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE LaborantServices
+(
+	id SERIAL PRIMARY KEY NOT NULL,
+	service_id INT REFERENCES Services(id),
+	employee_id INT REFERENCES Employees(id)
+);
+
+CREATE TABLE StatusesServices
+(
+	id SERIAL PRIMARY KEY NOT NULL,
+	status VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE StatusesOrders
+(
+	id SERIAL PRIMARY KEY NOT NULL,
+	status VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE Orders
+(
+	id SERIAL PRIMARY KEY NOT NULL,
+	creation_date DATE NOT NULL,
+	execution_time TIME NOT NULL,
+	price MONEY NOT NULL,
+	status_id INT REFERENCES StatusesOrders(id),
+	client_id INT REFERENCES Clients(id)
+);
+
+CREATE TABLE OrdersServices
+(
+	id SERIAL PRIMARY KEY NOT NULL,
+	service_id INT REFERENCES Services(id),
+	order_id INT REFERENCES Orders(id),
+	status_id INT REFERENCES StatusesServices(id)
+);
